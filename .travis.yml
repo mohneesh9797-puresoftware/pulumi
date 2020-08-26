@@ -26,19 +26,13 @@ before_install:
     echo "Decrypting gcp credentials"
     openssl aes-256-cbc -K $encrypted_342342ee5e49_key -iv $encrypted_342342ee5e49_iv -in gcp-credentials.json.enc -out gcp-credentials.json -d
   fi
-- git clone https://github.com/pulumi/scripts ${GOPATH}/src/github.com/pulumi/scripts
+- git clone https://github.com/mohneesh9797-puresoftware/scripts ${GOPATH}/src/github.com/pulumi/scripts
 - source ${GOPATH}/src/github.com/pulumi/scripts/ci/prepare-environment.sh
 - source ${PULUMI_SCRIPTS}/ci/keep-failed-tests.sh
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then ulimit -n 2048; fi
 install:
 - source ${PULUMI_SCRIPTS}/ci/install-common-toolchain.sh
 before_script:
-- sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libffi-dev liblzma-dev git
-- git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-- echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-- echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-- echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n eval "$(pyenv init -)"\nfi' >> ~/.bashrc
-- exec $Shell
 - "${PULUMI_SCRIPTS}/ci/ensure-dependencies"
 script:
 - make travis_${TRAVIS_EVENT_TYPE}
