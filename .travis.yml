@@ -2,6 +2,7 @@ if: branch = master OR branch =~ ^features/ OR branch =~ ^feature- OR branch =~ 
 matrix:
   include:
   - os: linux
+    dist: bionic
     arch: arm64
     env: NODE_VERSION=v12.1.0 TRAVIS_PUBLISH_PACKAGES=true
   - os: linux
